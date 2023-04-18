@@ -3,20 +3,11 @@ package main
 import (
 	"fmt"
 	"log"
+	"math-service/xmath"
 	"net/rpc"
 	"time"
+	"time-service/xtime"
 )
-
-// I know i could import it from time-service module if i created package in it but it's not the point
-type NowReply struct {
-	Hours   int
-	Minutes int
-	Seconds int
-}
-type SumArgs struct {
-	X int
-	Y int
-}
 
 func main() {
 	timeClient, err := rpc.DialHTTP("tcp", "localhost:5000")
@@ -30,13 +21,13 @@ func main() {
 	}
 
 	for {
-		t := new(NowReply)
+		t := new(xtime.NowReply)
 		err = timeClient.Call("TimeService.Now", "", &t)
 		if err != nil {
 			fmt.Printf("err in TimeService: %v\n", err)
 		}
 
-		args := &SumArgs{
+		args := &xmath.SumArgs{
 			X: t.Minutes,
 			Y: t.Seconds,
 		}

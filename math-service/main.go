@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math-service/xmath"
 	"net"
 	"net/http"
 	"net/rpc"
@@ -9,12 +10,7 @@ import (
 
 type MathService struct{}
 
-type SumArgs struct {
-	X int
-	Y int
-}
-
-func (ms *MathService) Sum(args *SumArgs, reply *int) error {
+func (ms *MathService) Sum(args *xmath.SumArgs, reply *int) error {
 	*reply = args.X + args.Y
 
 	return nil

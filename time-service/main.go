@@ -6,20 +6,15 @@ import (
 	"net/http"
 	"net/rpc"
 	"time"
+	"time-service/xtime"
 )
 
 type TimeService struct{}
 
-type NowReply struct {
-	Hours   int
-	Minutes int
-	Seconds int
-}
-
-func (ts *TimeService) Now(arg string, reply *NowReply) error {
+func (ts *TimeService) Now(arg string, reply *xtime.NowReply) error {
 	t := time.Now()
 
-	*reply = NowReply{
+	*reply = xtime.NowReply{
 		Hours:   t.Hour(),
 		Minutes: t.Minute(),
 		Seconds: t.Second(),
